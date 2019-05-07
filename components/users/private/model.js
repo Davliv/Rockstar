@@ -1,3 +1,4 @@
+const express = require('express');
 const mongoose = require('mongoose');
 const Settings = require('../../settings/status');
 const keygen = require('keygenerator');
@@ -81,6 +82,5 @@ const UserSchema = new mongoose.Schema( {
         default: null,
         required: false
       }
-
   });
 module.exports = UserSchema;

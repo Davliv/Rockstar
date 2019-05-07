@@ -18,5 +18,32 @@ const Config = {
   points_minlength: 0,
   points_maxlength: 50
 };
+const Categories_Config = {
+  title_minlength: 3,
+  title_maxlength: 100,
+
+};
+const Path_Config = {
+  title_minlength: 3,
+  title_maxlength: 100,
+  level_minlength: 0,
+  level_maxlength: 10,
+  estimation_minlength: 1,
+  estimation_maxlength: 30
+};
+const Item_Config = {
+  title_minlength: 3,
+  title_maxlength: 100,
+  url_minlength: 1,
+  url_maxlength: 50,
+  content_minlength: 1,
+  content_maxlength: 100,
+  estimation_minlength: 0,
+  estimation_maxlength: 1000,
+}
+
 module.exports.HTTPStatus = HTTPStatus;
 module.exports.Config = Config;
+module.exports.Item_Config = Item_Config;
+module.exports.Path_Config = Path_Config;
+module.exports.Categories_Config = Categories_Config;
