@@ -49,7 +49,7 @@ class Validator {
   validateLinkedItems(linked) {
       if (!Array.isArray(linked)) return false;
       let ObjectId = require('mongoose').Types.ObjectId;
-        for(let i = 0; i < linked.length; ++i) {
+      for(let i = 0; i < linked.length; ++i) {
         if (typeof linked[i] !== 'string') return false;
         if (!linked[i].match(/^[0-9a-fA-F]{24}$/)) return false;
       }

@@ -17,7 +17,7 @@ module.exports = ItemsAuth;
 
 
 ItemsAuth.post('/', (req, res) => {
-    const {title,type,estimation,linked_items,url,project_id,linked_optional_items,quiz_answers,content} = req.body;
+    const {title,type,estimation,linked_items,url,project_id,linked_optional_items,quiz_answers,content,image} = req.body;
     if (!title && !type && !estimation && !linked_items) {
         return res.send({success:false,msg:'Required Parameters is missing'}).status(Settings.HTTPStatus.PARAMS_INVALID);
     }
@@ -46,6 +46,7 @@ ItemsAuth.post('/', (req, res) => {
         linked_items,
         url,
         content,
+        image,
         project_id,
         linked_optional_items,
         quiz_answers
@@ -63,9 +64,6 @@ ItemsAuth.put('/:id/url',async (req, res) => {
     }
     if (!validation.validateUrl(url)) {
         return res.send({success:false,msg:'Not valid url'}).status(Settings.HTTPStatus.PARAMS_INVALID);
-    }
-    if (!validation.validateMongoId(id)) {
-        return res.send({success:false,msg:'Not valid id'}).status(Settings.HTTPStatus.PARAMS_INVALID);
     }
     await items.updateOne({ _id: id }, { $set: { url: url } },(err, result) => {
         if (err) return res.send('server error').status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);

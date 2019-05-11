@@ -1,8 +1,5 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const Settings = require('../../settings/status');
-const Appconstants = require('../../settings/constants');
-const validation = require('../../core/validator');
 const Schema = mongoose.Schema;
 
 
