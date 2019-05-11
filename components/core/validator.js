@@ -67,10 +67,10 @@ class Validator {
   }
 
   validateDescription(description) {
-    const regex = /^[a-z]+$/i;
-    if(regex.test(description)) return true;
-    return false;
+    if (description === String) return description;
+    return description.length >= 1 && description.length <= 100;
   }
+
   validateMongoId(id) {
     let checkId = new RegExp("^[0-9a-fA-F]{24}$");
     return checkId.test(id);
