@@ -18,26 +18,25 @@ app.use(bs.urlencoded({extended: false}));
 
 
 CategoriesAuth.post('/', (req, res) => {
-  const {title,description,type }= req.body;
-    if (title && type) {
+  const {title,description,image }= req.body;
+    if (title) {
       if (!validation.validateTitle(title)) {
           return res.send({success:false,msg:'Not valid title'}).status(Settings.HTTPStatus.PARAMS_INVALID);
       }
-      if (!validation.validateCategoriesType(type)) {
-          return res.send({success:false,msg:'Not valid type'}).status(Settings.HTTPStatus.PARAMS_INVALID);
-      }
-      if (!validation.validateDescription(description)) {
+      if (description && !validation.validateDescription(description)) {
           return res.send({success:false,msg:'Not valid description'}).status(Settings.HTTPStatus.PARAMS_INVALID);
       }
+      categories.create({
+        title: title,
+        description: description,
+        image: image
+      },(err) => {
+        if (err) return res.send({success:false,msg:'Server error'}).status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+        else res.send({success:true,msg:'categories created'}).status(Settings.HTTPStatus.OK);
+      });
+    } else {
+      return res.send({success:false,msg:'missing requre parametr'}).status(Settings.HTTPStatus.PARAMS_INVALID);
     }
-    categories.create({
-      title: title,
-      description: description,
-      type: type
-    },(err) => {
-      if (err) return res.send({success:false,msg:'Server error'}).status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
-      else res.send({success:true,msg:'categories created'}).status(Settings.HTTPStatus.OK);
-    });
 });
 
 CategoriesAuth.post('/:id/image', async (req, res) => {

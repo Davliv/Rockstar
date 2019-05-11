@@ -9,7 +9,6 @@ const CategoriesSchema = new mongoose.Schema( {
        minlength: Settings.Categories_Config.title_minlength,
        maxlength: Settings.Categories_Config.title_maxlength
      },
-     type: String,
      image: [{
        type: Schema.Types.ObjectId,
        ref: 'photos'
