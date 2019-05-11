@@ -1,21 +1,19 @@
 const express = require('express');
 const CategoriesAuth = express.Router();
 const bs = require('body-parser');
-const mongoose = require('mongoose');
 const validation = require('../core/validator');
 const Settings = require('../settings/status');
-const Path =  require('path');
-const multer  = require('multer');
-const Appconstants = require('../settings/constants');
 const CategoriesSchema = require('../categories/private/model');
 const programing_db = require('../core/db');
 const categories = programing_db.model('categories', CategoriesSchema);
-
-
 const app = express();
+
+
 app.use(bs.json());
 app.use(bs.urlencoded({extended: false}));
 
+
+module.exports = CategoriesAuth;
 
 CategoriesAuth.post('/', (req, res) => {
   const {title,description,image }= req.body;
@@ -39,7 +37,7 @@ CategoriesAuth.post('/', (req, res) => {
     }
 });
 
-CategoriesAuth.post('/:id/image', async (req, res) => {
+CategoriesAuth.put('/:id/image', async (req, res) => {
           const catogoriesId=req.params.id;
           const {imagee}=req.body;
           if (!catogoriesId && !image) return res.send({success:false,msg:'missing require parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
@@ -53,4 +51,4 @@ CategoriesAuth.post('/:id/image', async (req, res) => {
     });
 });
 
-module.exports = CategoriesAuth;
+

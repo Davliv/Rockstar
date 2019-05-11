@@ -67,7 +67,8 @@ class Validator {
   }
 
   validateDescription(description) {
-    if (typeof(description.type) === 'string') return true;
+    const regex = /^[a-z]+$/i;
+    if(regex.test(description)) return true;
     return false;
   }
   validateMongoId(id) {
