@@ -18,7 +18,7 @@ module.exports = ItemsAuth;
 
 ItemsAuth.post('/', (req, res) => {
     const {title,type,estimation,linked_items,url,project_id,linked_optional_items,quiz_answers,content,image} = req.body;
-    if (!title && !type && !estimation && !linked_items) {
+    if (!title || !type || !estimation || !linked_items) {
         return res.send({success:false,msg:'Required Parameters is missing'}).status(Settings.HTTPStatus.PARAMS_INVALID);
     }
     if (!validation.validateTitle(title)) {
@@ -59,7 +59,7 @@ ItemsAuth.post('/', (req, res) => {
 ItemsAuth.put('/:id/url',async (req, res) => {
   const { id } = req.params;
   const { url }= req.body;
-    if (!url && !id) {
+    if (!url || !id) {
        return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
     }
     if (!validation.validateUrl(url)) {
@@ -75,7 +75,9 @@ ItemsAuth.put('/:id/url',async (req, res) => {
 ItemsAuth.put('/:id/image', async (req, res) => {
     const itemId=req.params.id;
     const {imagee}=req.body;
-    if (!itemId && !image) return res.send({success:false,msg:'missing require parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+    if (!itemId || !image) {
+        return res.send({success:false,msg:'missing require parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+    }
     let item = await items.findById(itemId);
     if (!item)return res.send({success:false,msg:'missing require parameter'}).status(Settings.HTTPStatus.NOT_FOUND);
     item.image.push(imagee);
@@ -88,7 +90,9 @@ ItemsAuth.put('/:id/image', async (req, res) => {
 ItemsAuth.put('/:id/answers', async (req, res) => {
     const { value,correct } = req.body;
     const { id } = req.params;
-    if (!value || !correct || !id) return res.send({success:false,msg:'missing require parameter'}).status(Settings.HTTPStatus.NOT_FOUND);
+    if (!value || !correct || !id) {
+        return res.send({success:false,msg:'missing require parameter'}).status(Settings.HTTPStatus.NOT_FOUND);
+    }
     if (!validation.validateAnswer(value,correct)) {
         return res.send({success:false,msg:'Not valid Answer'}).status(Settings.HTTPStatus.PARAMS_INVALID);
     }
