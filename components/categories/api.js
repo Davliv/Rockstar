@@ -51,6 +51,23 @@ CategoriesAuth.put('/:id/description',async (req, res) => {
      });
 });
 
+
+CategoriesAuth.put('/:id/title',async (req, res) => {
+  const { id } = req.params;
+  const { title }= req.body;
+    if (!title || !id) {
+       return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+    }
+    if (!validation.validateTitle(title)) {
+        return res.send({success:false,msg:'Not valid title'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+    }
+    await categories.updateOne({ _id: id }, { $set: { title: title } },(err, result) => {
+        if (err) return res.send('server error').status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+        return res.send(result).status(Settings.HTTPStatus.OK);
+    });
+});
+
+
 CategoriesAuth.put('/:id/image', async (req, res) => {
     const catogoriesId=req.params.id;
     const {imagee}=req.body;
