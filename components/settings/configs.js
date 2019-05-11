@@ -3,5 +3,5 @@ module.exports = {
     DOMAIN: 'https://programing.app/',
     CDN_PREFIX: '/cdn/photos/',
     API_BASE_URL: '/api/v1/',
-    PORT: 7000
+    PORT: 3300
 }

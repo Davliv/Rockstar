@@ -9,6 +9,7 @@ const HTTPStatus = {
   PARAMS_INVALID: 400
 };
 const Config = {
+  xachik:90,
   email_minlength: 4,
   email_maxlength: 25,
   password_minlength: 6,
@@ -21,6 +22,8 @@ const Config = {
 const Categories_Config = {
   title_minlength: 3,
   title_maxlength: 100,
+  description_minlength: 1,
+  description_maxlength: 100
 
 };
 const Path_Config = {

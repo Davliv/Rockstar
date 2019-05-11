@@ -12,10 +12,15 @@ const CategoriesSchema = new mongoose.Schema( {
        minlength: Settings.Categories_Config.title_minlength,
        maxlength: Settings.Categories_Config.title_maxlength
      },
+     type: String,
      image: [{
        type: Schema.Types.ObjectId,
        ref: 'photos'
      }],
-     description: String
+     description: {
+       type: String,
+       minlength: Settings.Categories_Config.description_minlength,
+       maxlength: Settings.Categories_Config.description_maxlength
+     }
 });
 module.exports = CategoriesSchema;

@@ -1,0 +1,25 @@
+{
+  "name": "rockstar-master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Davliv/rockstar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Davliv/rockstar/issues"
+  },
+  "homepage": "https://github.com/Davliv/rockstar#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "keygenerator": "^1.0.4",
+    "mongoose": "^5.2.8",
+    "multer": "^1.4.1"
+  }
+}

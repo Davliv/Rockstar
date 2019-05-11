@@ -56,5 +56,24 @@ class Validator {
       return true;
   }
 
+  validateLevel(level) {
+    if (level === Number) return level;
+    return level >= 0 && level <= 10;
+  }
+
+  validateCategoriesType(type) {
+    if (type === 'C++' || type === 'Node js' || type === 'C#' || type === 'Angular' || type === 'PHP') return type;
+    return false;
+  }
+
+  validateDescription(description) {
+    if (typeof(description.type) === 'string') return true;
+    return false;
+  }
+  validateMongoId(id) {
+    let checkId = new RegExp("^[0-9a-fA-F]{24}$");
+    return checkId.test(id);
+  }
+
 }
 module.exports = new Validator();

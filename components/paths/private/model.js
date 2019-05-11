@@ -20,7 +20,8 @@ const PathSchema = new mongoose.Schema( {
    level: {
      type: Number,
      minlength: Settings.Path_Config.level_minlength,
-     maxlength: Settings.Path_Config.level_maxlength
+     maxlength: Settings.Path_Config.level_maxlength,
+     default: 0
    },
    estimation: {
      type: Number,
