@@ -39,7 +39,10 @@ const ItemSchema = new mongoose.Schema( {
              ref: 'items'
          }
      ],
-     linked_optional_items: [],
+     linked_optional_items: [{
+             type: Schema.Types.ObjectId,
+             ref: 'items'
+         }],
      quiz_answers: [{
         value: String,
         correct: Boolean

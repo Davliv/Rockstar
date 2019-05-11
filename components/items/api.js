@@ -71,6 +71,50 @@ ItemsAuth.put('/:id/url',async (req, res) => {
     });
 });
 
+ItemsAuth.put('/:id/title',async (req, res) => {
+    const { id } = req.params;
+    const { title }= req.body;
+      if (!title || !id) {
+         return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+      }
+      if (!validation.validateTitle(title)) {
+          return res.send({success:false,msg:'Not valid title'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+      }
+      await items.updateOne({ _id: id }, { $set: { title: title } },(err, result) => {
+          if (err) return res.send('server error').status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+          return res.send(result).status(Settings.HTTPStatus.OK);
+      });
+  });
+
+  ItemsAuth.put('/:id/estimation',async (req, res) => {
+    const { id } = req.params;
+    const { estimation }= req.body;
+      if (!estimation || !id) {
+         return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+      }
+      if (!validation.validateEstimation(estimation)) {
+          return res.send({success:false,msg:'Not valid estimation'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+      }
+      await items.updateOne({ _id: id }, { $set: { estimation: estimation } },(err, result) => {
+          if (err) return res.send('server error').status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+          return res.send(result).status(Settings.HTTPStatus.OK);
+      });
+  });
+
+  ItemsAuth.put('/:id/content',async (req, res) => {
+    const { id } = req.params;
+    const { content }= req.body;
+      if (!content || !id) {
+         return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+      }
+      if (!validation.validateContent(content)) {
+          return res.send({success:false,msg:'Not valid content'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+      }
+      await items.updateOne({ _id: id }, { $set: { content: content } },(err, result) => {
+          if (err) return res.send('server error').status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+          return res.send(result).status(Settings.HTTPStatus.OK);
+      });
+  });
 
 ItemsAuth.put('/:id/image', async (req, res) => {
     const itemId=req.params.id;
@@ -106,3 +150,50 @@ ItemsAuth.put('/:id/answers', async (req, res) => {
     });
 });
 
+ItemsAuth.put('/:id/linked_items',async (req, res) => {
+    const { id } = req.params;
+    const { linked_items }= req.body;
+    if (!linked_items || !id) {
+        return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+    }
+    await items.update(
+      { _id: id }, 
+      { $push: { linked_items } },
+      (err)=>{
+        if (err) res.send({success:false,msg:'Server error'}).status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+        else res.send({success:true,msg:'item is updated'}).status(Settings.HTTPStatus.OK);
+      }
+    );
+})
+
+ItemsAuth.put('/:id/linked_optional_items',async (req, res) => {
+    const { id } = req.params;
+    const { linked_optional_items }= req.body;
+    if (!linked_optional_items || !id) {
+        return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+    }
+    await items.update(
+      { _id: id }, 
+      { $push: { linked_optional_items } },
+      (err)=>{
+        if (err) res.send({success:false,msg:'Server error'}).status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+        else res.send({success:true,msg:'item is updated'}).status(Settings.HTTPStatus.OK);
+      }
+    );
+})
+
+ItemsAuth.put('/:id/project_id',async (req, res) => {
+    const { id } = req.params;
+    const { project_id }= req.body;
+    if (!project_id || !id) {
+        return res.send({success:false,msg:'missing reqiure parameter'}).status(Settings.HTTPStatus.PARAMS_INVALID);
+    }
+    await items.update(
+      { _id: id }, 
+      { $push: { project_id } },
+      (err)=>{
+        if (err) res.send({success:false,msg:'Server error'}).status(Settings.HTTPStatus.INTERNAL_SERVER_ERROR);
+        else res.send({success:true,msg:'item is updated'}).status(Settings.HTTPStatus.OK);
+      }
+    );
+})
